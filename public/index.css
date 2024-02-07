@@ -1,0 +1,44 @@
+body {
+  background-color: yellow;
+}
+
+.btn1 {
+  margin-left: 50px;
+  background-color: blue;
+  color: white;
+  font-size: larger;
+}
+
+.btn1:hover,
+.btn1:active {
+  background-color: rgb(255, 238, 4);
+  background-position: 0 0;
+  color: rgb(0, 0, 0);
+}
+
+.btn1:active {
+  opacity: .5;
+}
+
+.box {
+  float: left;
+  height: 620px;
+  width: 20%;
+  background-color: red;
+}
+
+.tableform {
+  margin-left: 35%; }
+
+.form_box {
+  height: auto;
+  width: 60%;
+  border-color: rgb(1, 31, 48);
+  border-style: solid;
+  border-radius: 7%;
+  padding: 10px;
+}
+
+form h1 {
+  text-align: center;
+}

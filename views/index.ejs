@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Table</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <link rel="stylesheet" href="/index.css">
+    
+    <div class="box">
+        <h3 style="text-align: center; color: greenyellow;">Tables</h3>
+        <ul style="color: white;">
+            <% tableNames.forEach(function(tableName) { %>
+                <li ><a style="color: white;" href="/table/<%= tableName %>"><%= tableName %></a></li>
+            <% }); %>
+        </ul>
+    
+    <button class="btn1" id="btn1" type="submit">Create A Table</button>
+    </div>
+    <div class="tableform" id="tableform" style="display: none;">
+        <form class="form_box" method="post" action="/tables">
+        <h3>Create Table</h3>
+        <div></div>
+            <div class="form-group">
+                <label>Table Name</label>
+                <br>
+                <input type="text" placeholder="Table Name" name="tablename" id="tablename">
+            </div>
+            
+            <div class="fields">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Field Name</label>
+                        <br>
+                        <input type="text" placeholder="field Name" name="fieldname" id="fieldname" required>
+                    </div>
+                    <div class="col-md-5">
+                        <label>Type</label><br>
+                        <select name="type" id="type" >
+                            <option>STRING</option>
+                            <option>INTEGER</option>
+                            <option>BOOLEAN</option>
+                            <option>FLOAT</option>
+                        </select>
+                    </div>
+                <div class="col-md-1">
+                    <button type="button" id="delete" class="delete" name="delete">X</button>
+                </div>
+                </div>
+
+            </div>
+            <br>
+            <button class="btn btn-primary" id="anotherfield" type="button" >Add another field</button>
+            <br><br>
+            <input class="btn btn-block btn-primary" type="submit">
+        </form>
+    </div>
+</body>
+<script>
+    var CTB = document.getElementById('btn1');
+    CTB.addEventListener('click', (e) => {
+        
+        var TF = document.getElementById('tableform');
+        if (TF.style.display == 'none') {
+            TF.style.display = 'block';
+            e.preventDefault();
+            CTB.textContent="Close Table"
+        }
+        else{
+            TF.style.display='none';
+            CTB.textContent='Create A Table'
+        }
+    });
+
+    var AF = document.getElementById('anotherfield');
+    AF.addEventListener('click',()=>{
+        const fieldcontainer = document.querySelector('.fields');
+        const fieldform = `<div class="row">
+                <div class="col-md-6">
+                    <label>Field Name</label>
+                    <br>
+                    <input type="text" placeholder="field Name" name="fieldname" id="fieldname" required>
+                </div>
+                <div class="col-md-5">
+                    <label>Type</label><br>
+                    <select name="type" >
+                        <option>STRING</option>
+                        <option>INTEGER</option>
+                        <option>BOOLEAN</option>
+                        <option>FLOAT</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="delete" id="delete" name="delete">X</button>
+                </div>
+            </div>
+            `
+        
+        var field_div= document.createElement("div");
+        field_div.innerHTML=fieldform;
+        fieldcontainer.appendChild(field_div);
+
+        var deleteButton = field_div.querySelector('.delete');
+        deleteButton.addEventListener('click', () => {
+        fieldcontainer.removeChild(field_div);
+    });
+});
+    var deleteButton = document.querySelector('.delete');
+    deleteButton.addEventListener('click', () => {
+        var fieldcontainer = document.querySelector('.fields');
+        var fieldDiv = document.querySelector('.row');
+        fieldcontainer.removeChild(fieldDiv); 
+    });
+
+
+
+</script>
+</html>
