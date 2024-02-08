@@ -1,30 +1,33 @@
 const sequelize = require('../helper/database');
 const path = require('path')
 const dataModel= require('../model/data')
-exports.CreateTable=(req,res,next)=>{
+exports.home=(req,res,next)=>{
+    res.sendFile(path.join(__dirname,'..','views','index.html'))
+}
+exports.Tables=(req,res,next)=>{
 
     sequelize.query('SHOW TABLES')
     .then(([results, metadata]) => {
         const tableNames = results.map(result => result['Tables_in_databasemanagement']);
-
-        console.log(tableNames);
-    res.render('index',{
-        path:'/home',
-        tableNames:tableNames,
-    })
+        
+        res.json({ table: tableNames })
 })
 }
 
-exports.PostTable = (req,res,next)=>{
-    const TN = req.body.tablename;
-    const FN = req.body.fieldname;
-    const FT = req.body.type;
-    const Table = dataModel.createTable(TN,FN,FT);
-    sequelize.sync()
-    .then(()=>{
-        res.redirect('/home')})
-    
-}
+exports.PostTable = (req, res, next) => {
+    const { tablename, fieldname, type } = req.body;
+    console.log(tablename,fieldname,type)
+    if (tablename && fieldname && type) {
+        dataModel.createTable(tablename, fieldname, type)
+        sequelize.sync()
+        res.status(200).json({message:'success'})
+        
+            
+    } else {
+        res.status(400).send('Missing required fields');
+    }
+};
+
 
 exports.getTable = (req, res, next) => {
     const tableName = req.params.tableName;

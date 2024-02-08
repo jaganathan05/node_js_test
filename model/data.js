@@ -20,7 +20,6 @@ const createTable = (TN, FN, FT) => {
   }
 
   const Table = sequelize.define(TN, tableFields);
-  return Table;
 };
 const getTableValues = (tableName) => {
   // Replace 'tableName' with the actual name of your table.

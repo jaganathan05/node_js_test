@@ -6,9 +6,9 @@ const dataController = require('../controller/data');
 
 const router = express.Router();
 
-router.get('/Home',dataController.CreateTable);
-
-router.post('/tables',dataController.PostTable);
+router.get('/Home',dataController.home);
+router.get('/tables',dataController.Tables);
+router.post('/table',dataController.PostTable);
 
 router.get('/table/:tableName',dataController.getTable);
 
